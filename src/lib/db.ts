@@ -1,7 +1,6 @@
 import { CreateUrlDto, UpdateUrlDto, Url } from "@/types/database";
 import { supabase } from "./supabase";
 import { TABLES } from "./constants";
-import { error } from "console";
 
 export const db = {
   urls: {
