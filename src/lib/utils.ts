@@ -60,6 +60,13 @@ export function normalizeUrl(url: string): string {
   return `https://${trimmed}`;
 }
 
+/**
+ * @params date - ISO string or Date object
+ * @returns formatted date string
+ * 
+ * example :
+ * formatdate(formatDate("2024-03-15T10:30:00Z") → "15 Maret 2024")
+ */
 export function formatDate(date: string | Date): string {
   const dateObj = typeof date === "string" ? new Date(date) : date;
 
@@ -70,6 +77,14 @@ export function formatDate(date: string | Date): string {
   });
 }
 
+/**
+ * 
+ * @param date - iso string or Date object
+ * @returns formatted datetime string
+ * 
+ * example :
+ * formatDateTime("2024-03-15T10:30:00Z") → "15 Maret 2024, 17:30"
+ */
 export function formatDateTime(date: string | Date): string {
   const dateObj = typeof date === "string" ? new Date(date) : date;
 
@@ -82,6 +97,16 @@ export function formatDateTime(date: string | Date): string {
   });
 }
 
+/**
+ * formatted number with separator
+ * 
+ * @param num - number to be formatted
+ * @returns Formatted number string
+ * 
+ * example:
+ * formatNumber(1234) → "1,234"
+ * formatNumber(1234567) → "1,234,567"
+ */
 export function formatNumber(num: number): string {
   return num.toLocaleString("id-ID");
 }

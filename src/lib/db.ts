@@ -13,9 +13,23 @@ export const db = {
         .single();
 
       if (error) {
-        console.log("Error Creating URL", error);
+        console.error("❌ [db.urls.create] Supabase error object:", error);
+        console.error("❌ [db.urls.create] Error message:", error.message);
+        console.error("❌ [db.urls.create] Error details:", error.details);
+        console.error("❌ [db.urls.create] Error hint:", error.hint);
+        console.error("❌ [db.urls.create] Error code:", error.code);
+        console.error(
+          "❌ [db.urls.create] Full error JSON:",
+          JSON.stringify(error, null, 2)
+        );
         return null;
       }
+
+      console.log("✅ [db.urls.create] Success!");
+      console.log(
+        "📊 [db.urls.create] Result:",
+        JSON.stringify(result, null, 2)
+      );
 
       return result;
     },
@@ -31,6 +45,24 @@ export const db = {
 
       if (error) {
         console.log("Error Creating URL", error);
+        return null;
+      }
+
+      return data;
+    },
+
+    /**
+     * Find URL by ID
+     */
+    async findById(id: string): Promise<Url | null> {
+      const { data, error } = await supabase
+        .from(TABLES.URLS)
+        .select("*")
+        .eq("id", id)
+        .single();
+
+      if (error) {
+        console.error("Error finding URL by ID:", error);
         return null;
       }
 
