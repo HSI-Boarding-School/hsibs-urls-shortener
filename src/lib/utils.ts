@@ -146,9 +146,9 @@ export function isValidShortCode(code: string): boolean {
   // Regex breakdown:
   // ^        : Start of string
   // [a-zA-Z0-9] : Alfanumerik only
-  // {3,10}   : 3 until 10 characters
+  // {3,10}   : 3 until 16 characters
   // $        : End of string
-  const alphanumericRegex = /^[a-zA-Z0-9]{3,10}$/;
+  const alphanumericRegex = /^[a-zA-Z0-9]{3,16}$/;
 
   if (!alphanumericRegex.test(code)) {
     return false;

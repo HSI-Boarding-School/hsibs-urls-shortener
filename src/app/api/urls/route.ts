@@ -65,7 +65,7 @@ export async function POST(request: NextRequest) {
       if (!isValidShortCode(shortCode)) {
         // ✅ Panggil function!
         return validationError(
-          "Invalid short code format. Use 3-10 alphanumeric characters (not pure numbers)"
+          "Invalid short code format. Use 3-16 alphanumeric characters (not pure numbers)"
         );
       }
 

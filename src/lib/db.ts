@@ -54,17 +54,20 @@ export const db = {
     /**
      * Find URL by ID
      */
-    async findById(id: string): Promise<Url | null> {
+    async findById(shortCode: string): Promise<Url | null> {
       const { data, error } = await supabase
         .from(TABLES.URLS)
         .select("*")
-        .eq("id", id)
-        .single();
+        .ilike('short_code', shortCode) 
+        .eq("is_active", true)
+        .maybeSingle();
 
       if (error) {
         console.error("Error finding URL by ID:", error);
         return null;
       }
+
+      console.log('✅ [findByShortCode] Found:', data)
 
       return data;
     },

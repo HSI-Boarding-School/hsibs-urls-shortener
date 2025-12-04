@@ -5,33 +5,33 @@ import { NextRequest } from "next/server";
 
 export async function GET(
   request: NextRequest,
-  {params}: {params: {code: string}}
+  context: { params: Promise<{ code: string }> }
 ) {
   try {
-    const code = sanitizeInput(params.code)
+    const { code } = await context.params;
+    const sanitized = sanitizeInput(code);
 
-    // validate format 
-    if (!isValidShortCode(code)) {
-      return validationError('Invalid short code format')
+    // validate format
+    if (!isValidShortCode(sanitized)) {
+      return validationError("Invalid short code format");
     }
 
     // check availability
-    const exist = await db.urls.shortCodeExist(code)
+    const exist = await db.urls.shortCodeExist(sanitized);
 
     return succesResponse({
-      code,
+      sanitized,
       available: !exist,
-      message: exist 
-      ? 'Short code is already taken'
-      : 'Short code is available'
-    }
-    )
+      message: exist
+        ? "Short code is already taken"
+        : "Short code is available",
+    });
   } catch (error) {
-    console.error('GET api/urls/check/[code] error : ', error)
+    console.error("GET api/urls/check/[code] error : ", error);
     return succesResponse({
-      code: params.code,
+      code: "unknown",
       available: false,
-      message: 'Error checking availability'
-    })
+      message: "Error checking availability",
+    });
   }
 }
